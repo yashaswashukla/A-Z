@@ -63,7 +63,12 @@ Right array of 4 is: {}, hence -1;
 
 Algorithm:
 
---->
+---> If the stack is empty just print -1 and push that element in the stack
+---> If the stack top is greater than that element just print the stack top
+---> Also push the current element in the stack
+---> If the current element is greater than stack top then pop till you get
+---> the element greater than current as the stack top and print that element
+---> Also push that element in the stack
 
 
  */
@@ -71,6 +76,32 @@ class optimalSolution
 {
     vector<long long> nextLargerElement(vector<long long> arr, int n)
     {
+        stack<long long> st;
+        vector<long long> ans;
+
+        for (int i = arr.size() - 1; i >= 0; i--)
+        {
+            if (st.empty())
+                ans.push_back(-1);
+            else
+            {
+                if (st.top() > arr[i])
+                    ans.push_back(st.top());
+                else
+                {
+                    while (!st.empty() and st.top() <= arr[i])
+                        st.pop();
+                    if (st.empty())
+                        ans.push_back(-1);
+                    else
+                        ans.push_back(st.top());
+                }
+            }
+            st.push(arr[i]);
+        }
+        reverse(ans.begin(), ans.end());
+        // Important as we traverse from left to right solution vector will be in the reverse order
+        return ans;
     }
 };
 int main()
