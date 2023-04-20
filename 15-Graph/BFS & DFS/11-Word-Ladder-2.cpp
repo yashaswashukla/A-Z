@@ -9,8 +9,11 @@ class Solution
 private:
     vector<vector<string>> ans;
     vector<string> temp;
-    void dfs(string curr, string endWord, unordered_set<string> &word, unordered_set<string> &vis)
+    int level = 1;
+    void dfs(int curlevel, string curr, string endWord, unordered_set<string> &word, unordered_set<string> &vis)
     {
+        if (curlevel > level)
+            return;
         vis.insert(curr);
         temp.push_back(curr);
         if (curr == endWord)
@@ -43,7 +46,7 @@ public:
 
         queue<string> q;
         q.push(beginWord);
-        int level = 1;
+
         bool found = false;
         while (!q.empty())
         {
@@ -77,7 +80,7 @@ public:
         }
         vis.clear();
         if (found)
-            dfs(beginWord, endWord, word, vis);
+            dfs(0, beginWord, endWord, word, vis);
         else
             return {};
     }
