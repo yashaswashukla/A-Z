@@ -9,8 +9,7 @@ class Solution
 public:
     int findK(vector<vector<int>> &a, int n, int m, int k)
     {
-        // Your code goes here
-    
+        
     }
 };
 int main()
