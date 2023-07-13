@@ -47,25 +47,53 @@ public:
     }
     int wildCard(string pat, string str)
     {
-        int n = (int)pat.length(), m = str.length();
-        vector<vector<bool>> dp(n + 1, vector<bool>(m + 1, 0));
+        int n = (int)pat.length(), m = (int)str.length();
+        vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
         dp[0][0] = 1;
         for (int i = 1; i <= n; i++)
-            dp[i][0] = allstars(pat, i);
-
+            dp[i][0] = allstars(pat, i - 1);
         for (int i = 1; i <= n; i++)
-        {
             for (int j = 1; j <= m; j++)
             {
-                if (pat[i - 1] == '?' or pat[i - 1] == str[j - 1])
+                if (pat[i - 1] == str[j - 1] or pat[i - 1] == '?')
                     dp[i][j] = dp[i - 1][j - 1];
                 else if (pat[i - 1] == '*')
                     dp[i][j] = dp[i - 1][j] or dp[i][j - 1];
                 else
                     dp[i][j] = 0;
             }
-        }
         return dp[n][m];
+    }
+};
+class spaceOptimized
+{
+    bool allstars(string pat, int i)
+    {
+        for (int j = 0; j <= i; j++)
+            if (pat[j] != '*')
+                return false;
+        return true;
+    }
+    int wildCard(string pat, string str)
+    {
+        int n = (int)pat.length(), m = (int)str.length();
+        vector<int> prev(m + 1, 0), curr(m + 1, 0);
+        prev[0] = 1;
+        for (int i = 1; i <= n; i++)
+        {
+            curr[0] = allstars(pat, i - 1);
+            for (int j = 1; j <= m; j++)
+            {
+                if (pat[i - 1] == str[j - 1] or pat[i - 1] = '?')
+                    curr[j] = prev[j - 1];
+                else if (pat[i - 1] == '*')
+                    curr[j] = prev[j] or curr[j - 1];
+                else
+                    curr[j] = 0;
+            }
+            prev = curr;
+        }
+        return prev[m];
     }
 };
 int main()
