@@ -10,11 +10,7 @@ public:
     bool solve(vector<int> &arr, int idx, int sum, vector<vector<int>> &dp)
     {
         if (!idx)
-        {
-            if (arr[idx] == sum)
-                return true;
-            return false;
-        }
+            return arr[idx] == sum;
         if (!sum)
             return dp[idx][sum] = true;
 
