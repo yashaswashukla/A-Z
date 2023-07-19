@@ -46,8 +46,7 @@ public:
             }
             dp[idx] = maxSum;
         }
-        return dp[0];
-    }
+        return dp[0];    }
 };
 int main()
 {
