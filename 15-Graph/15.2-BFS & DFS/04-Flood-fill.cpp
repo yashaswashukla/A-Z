@@ -1,6 +1,6 @@
 /*
 GFG: https://practice.geeksforgeeks.org/problems/flood-fill-algorithm1856/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=flood-fill-algorithm
-Leetcode:
+Leetcode:https://leetcode.com/problems/flood-fill/
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -25,8 +25,10 @@ public:
     }
     vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc, int newColor)
     {
+        if(image[sr][sc] == newColor)
+            return image;
+            
         int prevColor = image[sr][sc];
-
         dfs(sr, sc, image, newColor, prevColor);
     }
 };
