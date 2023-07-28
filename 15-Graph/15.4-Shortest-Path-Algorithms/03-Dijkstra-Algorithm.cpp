@@ -7,6 +7,32 @@ using namespace std;
 class Solution
 {
 public:
+    // Using a queue and an array
+    vector<int> dijkstra(int V, vector<vector<int>> adj[], int S)
+    {
+        vector<int> ans(V, 1e9);
+        unordered_set<int> vis;
+        ans[S] = 0;
+        queue<int> q;
+        q.push(S);
+        while (!q.empty())
+        {
+            int node = q.front();
+            q.pop();
+            vis.insert(node);
+            int dis = ans[node];
+            for (auto it : adj[node])
+            {
+                int child = it[0], edgeWeight = it[1];
+                if (ans[child] > dis + edgeWeight)
+                {
+                    q.push(child);
+                    ans[child] = dis + edgeWeight;
+                }
+            }
+        }
+        return ans;
+    }
     // Using Priority Queue
     vector<int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
