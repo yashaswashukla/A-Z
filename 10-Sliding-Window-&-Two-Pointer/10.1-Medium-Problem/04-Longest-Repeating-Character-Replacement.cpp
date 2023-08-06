@@ -9,16 +9,17 @@ class Solution
 public:
     int characterReplacement(string s, int k)
     {
-        int left = 0, right = 0, zero = 0, ans = 0;
-        while (right < s.size())
+        int left = 0, right = 0, count = 0, ans = 0, hash[26] = {0};
+
+        for (; right < (int)s.length(); right++)
         {
-            if (s[right] != s[left])
-                zero++;
-            while (zero > k)
+            hash[s[right] - 'A']++;
+            count = max(count, hash[s[right] - 'A']);
+
+            while (right - left + 1 - count > k)
             {
-                if (s[left] != s[right])
-                    zero--;
-                left++;
+                hash[s[left] - 'A']--;
+                left--;
             }
             ans = max(ans, right - left + 1);
             right++;
