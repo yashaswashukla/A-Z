@@ -1,0 +1,46 @@
+/*
+Gfg:https://practice.geeksforgeeks.org/problems/candy/1
+Leetcode:https://leetcode.com/problems/candy/description/
+*/
+#include <bits/stdc++.h>
+using namespace std;
+class Solution
+{
+public:
+    int candy(vector<int> &ratings)
+    {
+        int n = ratings.size(), i = 1, candy = n;
+
+        while (i < n)
+        {
+            if (ratings[i] == ratings[i - 1])
+            {
+                i++;
+                continue;
+            }
+
+            int peak = 0;
+            while (ratings[i] > ratings[i - 1])
+            {
+                peak++;
+                candy += peak;
+                i++;
+                if (i == n)
+                    return candy;
+            }
+
+            int valley = 0;
+            while (i < n and ratings[i] < ratings[i - 1])
+            {
+                valley++;
+                candy += valley;
+                i++;
+            }
+            candy -= min(peak, valley);
+        }
+        return candy;
+    }
+};
+int main()
+{
+}
